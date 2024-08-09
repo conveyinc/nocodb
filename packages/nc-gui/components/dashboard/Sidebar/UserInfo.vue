@@ -79,90 +79,7 @@ onMounted(() => {
         </div>
         <template #overlay>
           <NcMenu data-testid="nc-sidebar-userinfo">
-            <NcMenuItem data-testid="nc-sidebar-user-logout" @click="logout">
-              <div v-e="['c:user:logout']" class="flex gap-2 items-center">
-                <GeneralLoader v-if="isLoggingOut" class="!ml-0.5 !mr-0.5 !max-h-4.5 !-mt-0.5" />
-                <GeneralIcon v-else icon="signout" class="menu-icon" />
-                <span class="menu-btn"> {{ $t('general.logout') }}</span>
-              </div>
-            </NcMenuItem>
-            <NcDivider />
-            <a
-              v-e="['c:nocodb:discord']"
-              href="https://discord.gg/5RgZmkW"
-              target="_blank"
-              class="!underline-transparent"
-              rel="noopener noreferrer"
-            >
-              <NcMenuItem class="social-icon-wrapper">
-                <GeneralIcon class="social-icon" icon="ncDiscord" />
-                <span class="menu-btn"> {{ $t('labels.community.joinDiscord') }} </span>
-              </NcMenuItem>
-            </a>
-            <a
-              v-e="['c:nocodb:reddit']"
-              href="https://www.reddit.com/r/NocoDB"
-              target="_blank"
-              class="!underline-transparent"
-              rel="noopener noreferrer"
-            >
-              <NcMenuItem class="social-icon-wrapper">
-                <GeneralIcon class="social-icon" icon="ncReddit" />
-                <span class="menu-btn"> {{ $t('labels.community.joinReddit') }} </span>
-              </NcMenuItem>
-            </a>
-            <a
-              v-e="['c:nocodb:twitter']"
-              href="https://twitter.com/nocodb"
-              target="_blank"
-              class="!underline-transparent"
-              rel="noopener noreferrer"
-            >
-              <NcMenuItem class="social-icon-wrapper group">
-                <GeneralIcon class="social-icon text-gray-500 group-hover:text-gray-800" icon="ncTwitter" />
-                <span class="menu-btn"> {{ $t('labels.twitter') }} </span>
-              </NcMenuItem>
-            </a>
-            <template v-if="!appInfo.ee">
-              <NcDivider />
-              <a-popover key="language" class="lang-menu !py-1.5" placement="rightBottom">
-                <NcMenuItem>
-                  <div v-e="['c:translate:open']" class="flex gap-2 items-center">
-                    <GeneralIcon icon="translate" class="group-hover:text-black nc-language ml-0.25 menu-icon" />
-                    {{ $t('labels.language') }}
-                    <div class="flex items-center text-gray-400 text-xs">{{ $t('labels.community.communityTranslated') }}</div>
-                    <div class="flex-1" />
-
-                    <MaterialSymbolsChevronRightRounded
-                      class="transform group-hover:(scale-115 text-accent) text-xl text-gray-400"
-                    />
-                  </div>
-                </NcMenuItem>
-
-                <template #content>
-                  <div class="bg-white max-h-50vh scrollbar-thin-dull min-w-64 !overflow-auto">
-                    <LazyGeneralLanguageMenu />
-                  </div>
-                </template>
-              </a-popover>
-            </template>
-
             <template v-if="!isMobileMode">
-              <NcDivider />
-
-              <a
-                v-e="['c:nocodb:forum-open']"
-                href="https://community.nocodb.com"
-                target="_blank"
-                class="!underline-transparent"
-                rel="noopener"
-              >
-                <NcMenuItem>
-                  <GeneralIcon icon="ncHelp" class="menu-icon mt-0.5" />
-                  <span class="menu-btn"> {{ $t('title.forum') }} </span>
-                </NcMenuItem>
-              </a>
-
               <a
                 v-e="['c:nocodb:docs-open']"
                 href="https://docs.nocodb.com"
@@ -184,16 +101,21 @@ onMounted(() => {
                 <NcMenuItem> <GeneralIcon icon="ncSettings" class="menu-icon" /> {{ $t('title.accountSettings') }} </NcMenuItem>
               </nuxt-link>
             </template>
+
+            <NcMenuItem data-testid="nc-sidebar-user-logout" @click="logout">
+              <div v-e="['c:user:logout']" class="flex gap-2 items-center">
+                <GeneralLoader v-if="isLoggingOut" class="!ml-0.5 !mr-0.5 !max-h-4.5 !-mt-0.5" />
+                <GeneralIcon v-else icon="signout" class="menu-icon" />
+                <span class="menu-btn"> {{ $t('general.logout') }}</span>
+              </div>
+            </NcMenuItem>
+
           </NcMenu>
         </template>
       </NcDropdown>
       <LazyNotificationMenu />
     </div>
 
-    <template v-if="isMobileMode || appInfo.ee"></template>
-    <div v-else class="flex flex-row w-full justify-between pt-0.5 truncate">
-      <GeneralJoinCloud />
-    </div>
   </div>
 </template>
 
@@ -204,10 +126,6 @@ onMounted(() => {
 .menu-icon {
   @apply w-4 h-4;
   font-size: 1rem;
-}
-
-:deep(.ant-popover-inner-content) {
-  @apply !p-0 !rounded-md;
 }
 
 .social-icon {
